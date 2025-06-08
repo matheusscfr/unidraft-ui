@@ -25,7 +25,7 @@ export default async function authetication_dash(login: Props) {
       httpOnly: true,
       secure: true,
     });
-    (await cookies()).set("id_usuario", data.user.id_usuario, {
+    (await cookies()).set("id_recrutador", data.user.id_recrutador, {
       httpOnly: true,
       secure: true,
     });

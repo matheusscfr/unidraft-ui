@@ -1,14 +1,38 @@
-export const API_URL = "http://localhost:3000/";
+export const API_URL = "https://faculdade-back-end-production.up.railway.app/";
 
 export function AUTH_DASH() { 
     return {
-      url: API_URL + "users/login",
+      url: API_URL + "recrutadores/login",
   };
 }
 
 export function USER_ID(userid: string | undefined) {
     return {
         url: API_URL + "users/" + userid,
+    }
+}
+
+export function GET_ALL_STUDENT() {
+    return {
+        url: API_URL + "aluno"
+    }
+}
+
+export function NEW_RECRUITER() {
+    return {
+        url: API_URL + "recrutadores"
+    }
+}
+
+export function NEW_SOLICITATION(recrutador_id: string | undefined) {
+    return {
+        url: API_URL + "recrutadores/oferta-contratacao/" + recrutador_id
+    }
+}
+
+export function GET_ALL_ENTERPRISE() {
+    return {
+        url: API_URL + "empresa"
     }
 }
 
