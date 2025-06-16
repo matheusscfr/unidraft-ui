@@ -68,7 +68,19 @@ export default function DashboardPage() {
     return acc;
   }, {} as Record<string, number>);
 
+  // Soft Skills mais comuns
+  const softSkillsCount = studentsData.reduce((acc, student) => {
+    student.softskills?.forEach(skill => {
+      acc[skill.nome] = (acc[skill.nome] || 0) + 1;
+    });
+    return acc;
+  }, {} as Record<string, number>);
+
   const topSkills = Object.entries(skillsCount)
+    .sort(([,a], [,b]) => b - a)
+    .slice(0, 5);
+
+  const topSoftSkills = Object.entries(softSkillsCount)
     .sort(([,a], [,b]) => b - a)
     .slice(0, 5);
 
@@ -283,15 +295,32 @@ export default function DashboardPage() {
                               <p className="text-sm font-medium text-gray-700 mb-2">Aptidões:</p>
                               <div className="flex flex-wrap gap-2">
                                 {student.aptidoes.map((skill) => (
-                                  <div key={skill.id_aptidao} className="bg-white rounded-full px-3 py-1 border">
+                                  <div key={skill.id_aptidao} className="bg-blue-50 rounded-full px-3 py-1 border border-blue-200">
                                     <div className="flex items-center space-x-2">
-                                      <span className="text-sm font-medium">{skill.nome}</span>
+                                      <span className="text-sm font-medium text-blue-900">{skill.nome}</span>
                                       {renderSkillLevel(skill.nivel)}
                                     </div>
                                   </div>
                                 ))}
                               </div>
                             </div>
+
+                            {/* Soft Skills */}
+                            {student.softskills && student.softskills.length > 0 && (
+                              <div className="mb-3">
+                                <p className="text-sm font-medium text-gray-700 mb-2">Soft Skills:</p>
+                                <div className="flex flex-wrap gap-2">
+                                  {student.softskills.map((skill) => (
+                                    <div key={skill.id_softskill} className="bg-green-50 rounded-full px-3 py-1 border border-green-200">
+                                      <div className="flex items-center space-x-2">
+                                        <span className="text-sm font-medium text-green-900">{skill.nome}</span>
+                                        {renderSkillLevel(skill.nivel)}
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
 
                             <div className="flex justify-between items-center">
                               <span className="text-sm text-gray-500">
@@ -342,7 +371,7 @@ export default function DashboardPage() {
 
                 <Card className="border-0 shadow-md">
                   <CardHeader>
-                    <CardTitle className="text-lg font-semibold">Aptidões Populares</CardTitle>
+                    <CardTitle className="text-lg font-semibold">Aptidões Técnicas Populares</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
@@ -355,6 +384,27 @@ export default function DashboardPage() {
                       {topSkills.length === 0 && (
                         <p className="text-sm text-gray-500 text-center">
                           Nenhuma aptidão registrada ainda
+                        </p>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-0 shadow-md">
+                  <CardHeader>
+                    <CardTitle className="text-lg font-semibold">Soft Skills Populares</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {topSoftSkills.map(([skill, count]) => (
+                        <div key={skill} className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">{skill}</span>
+                          <span className="font-semibold text-gray-900">{count}</span>
+                        </div>
+                      ))}
+                      {topSoftSkills.length === 0 && (
+                        <p className="text-sm text-gray-500 text-center">
+                          Nenhuma soft skill registrada ainda
                         </p>
                       )}
                     </div>

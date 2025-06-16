@@ -261,8 +261,9 @@ export default function StudentProfileModal({
                 </div>
               </div>
 
-              {/* Coluna do meio e direita - Aptidões */}
-              <div className="lg:col-span-2">
+              {/* Coluna do meio e direita - Aptidões e Soft Skills */}
+              <div className="lg:col-span-2 space-y-6">
+                {/* Aptidões Técnicas */}
                 <div className="bg-white border rounded-lg p-6">
                   <h4 className="font-semibold text-gray-900 mb-6 flex items-center text-lg">
                     <Building className="w-5 h-5 mr-2 text-blue-600" />
@@ -288,6 +289,36 @@ export default function StudentProfileModal({
                     <div className="text-center py-8">
                       <Building className="w-12 h-12 mx-auto mb-3 text-gray-400" />
                       <p className="text-gray-500">Nenhuma aptidão cadastrada</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Soft Skills */}
+                <div className="bg-white border rounded-lg p-6">
+                  <h4 className="font-semibold text-gray-900 mb-6 flex items-center text-lg">
+                    <User className="w-5 h-5 mr-2 text-green-600" />
+                    Soft Skills
+                  </h4>
+                  {student.softskills && student.softskills.length > 0 ? (
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {student.softskills.map((skill) => (
+                        <div key={skill.id_softskill} className="bg-green-50 border border-green-200 rounded-lg p-4">
+                          <div className="space-y-3">
+                            <h5 className="font-semibold text-green-900 text-center">{skill.nome}</h5>
+                            <div className="flex justify-center">
+                              {renderSkillLevel(skill.nivel)}
+                            </div>
+                            {skill.descricao && (
+                              <p className="text-sm text-green-700 text-center leading-relaxed">{skill.descricao}</p>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <User className="w-12 h-12 mx-auto mb-3 text-gray-400" />
+                      <p className="text-gray-500">Nenhuma soft skill cadastrada</p>
                     </div>
                   )}
                 </div>

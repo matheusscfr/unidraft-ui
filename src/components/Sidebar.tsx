@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { 
   Home, 
   Users, 
@@ -10,7 +10,6 @@ import {
   Building2 
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cookies } from "next/headers";
 
 interface SidebarProps {
   activeItem?: string;
@@ -18,13 +17,11 @@ interface SidebarProps {
 
 export default function Sidebar({ activeItem = "dashboard" }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
-
+  
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: Home, href: "/dashboard" },
     { id: "alunos", label: "Alunos", icon: Users, href: "/alunos" },
   ];
-
-
 
   const handleLogout = () => {
     window.location.href = "/login";
@@ -63,8 +60,8 @@ export default function Sidebar({ activeItem = "dashboard" }: SidebarProps) {
                 <Building2 className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">Faturamento</h1>
-                <p className="text-sm text-gray-600">Operador(a)</p>
+                <h1 className="text-xl font-bold text-gray-900">UNIDRAFT</h1>
+                <p className="text-sm text-gray-600">Recrutador(a)</p>
               </div>
             </div>
           </div>

@@ -10,6 +10,16 @@ export type Aptidao = {
   descricao: string;
 };
 
+export type SoftSkill = {
+  id_softskill: string;
+  id_aluno: string;
+  nome: string;
+  nivel: number;
+  descricao: string;
+  data_criacao: string;
+  data_atualizacao: string;
+};
+
 export type Student = {
   id_aluno: string;
   nome: string;
@@ -29,6 +39,7 @@ export type Student = {
   data_criacao: string;
   data_atualizacao: string;
   aptidoes: Aptidao[];
+  softskills: SoftSkill[];
 };
 
 export default async function getStudents() {

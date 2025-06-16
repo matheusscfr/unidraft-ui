@@ -18,6 +18,7 @@ export interface FilterOptions {
   semestres: number[];
   statusSolicitacoes: 'todos' | 'com_solicitacoes' | 'sem_solicitacoes';
   aptidoes: string[];
+  softskills: string[];
   idadeMin: string;
   idadeMax: string;
 }
@@ -54,6 +55,10 @@ export default function FiltersModal({
     studentsData.flatMap(student => student.aptidoes.map(skill => skill.nome))
   )].sort();
 
+  const availableSoftSkills = [...new Set(
+    studentsData.flatMap(student => student.softskills?.map(skill => skill.nome) || [])
+  )].sort();
+
   const handleSemesterToggle = (semester: number) => {
     setFilters(prev => ({
       ...prev,
@@ -72,6 +77,15 @@ export default function FiltersModal({
     }));
   };
 
+  const handleSoftSkillToggle = (skill: string) => {
+    setFilters(prev => ({
+      ...prev,
+      softskills: prev.softskills.includes(skill)
+        ? prev.softskills.filter(s => s !== skill)
+        : [...prev.softskills, skill]
+    }));
+  };
+
   const handleApplyFilters = () => {
     onApplyFilters(filters);
     onOpenChange(false);
@@ -82,6 +96,7 @@ export default function FiltersModal({
       semestres: [],
       statusSolicitacoes: 'todos',
       aptidoes: [],
+      softskills: [],
       idadeMin: '',
       idadeMax: '',
     };
@@ -91,6 +106,7 @@ export default function FiltersModal({
   const hasActiveFilters = filters.semestres.length > 0 || 
     filters.statusSolicitacoes !== 'todos' ||
     filters.aptidoes.length > 0 ||
+    filters.softskills.length > 0 ||
     filters.idadeMin !== '' ||
     filters.idadeMax !== '';
 
@@ -239,6 +255,37 @@ export default function FiltersModal({
               )}
             </div>
 
+            {/* Filtro por Soft Skills */}
+            <div>
+              <Label className="text-sm font-medium text-gray-700 mb-3 block">
+                Soft Skills
+              </Label>
+              {availableSoftSkills.length > 0 ? (
+                <div className="max-h-48 overflow-y-auto border rounded-lg p-3">
+                  <div className="grid grid-cols-2 gap-2">
+                    {availableSoftSkills.map(skill => (
+                      <Button
+                        key={skill}
+                        variant={filters.softskills.includes(skill) ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => handleSoftSkillToggle(skill)}
+                        className={`justify-start text-left ${
+                          filters.softskills.includes(skill) ? "bg-blue-600 hover:bg-blue-700" : ""
+                        }`}
+                      >
+                        {filters.softskills.includes(skill) && (
+                          <Check className="w-3 h-3 mr-1 flex-shrink-0" />
+                        )}
+                        <span className="truncate">{skill}</span>
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <p className="text-sm text-gray-500 italic">Nenhuma soft skill disponível</p>
+              )}
+            </div>
+
             {/* Resumo dos Filtros Ativos */}
             {hasActiveFilters && (
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
@@ -252,6 +299,9 @@ export default function FiltersModal({
                   )}
                   {filters.aptidoes.length > 0 && (
                     <p>• Aptidões: {filters.aptidoes.slice(0, 3).join(', ')}{filters.aptidoes.length > 3 && ` +${filters.aptidoes.length - 3} mais`}</p>
+                  )}
+                  {filters.softskills.length > 0 && (
+                    <p>• Soft Skills: {filters.softskills.slice(0, 3).join(', ')}{filters.softskills.length > 3 && ` +${filters.softskills.length - 3} mais`}</p>
                   )}
                   {(filters.idadeMin || filters.idadeMax) && (
                     <p>• Idade: {filters.idadeMin || '?'} - {filters.idadeMax || '?'} anos</p>
