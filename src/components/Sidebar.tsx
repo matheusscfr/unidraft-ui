@@ -63,8 +63,8 @@ export default function Sidebar({ activeItem = "dashboard" }: SidebarProps) {
                 <Building2 className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">UniDraft</h1>
-                <p className="text-sm text-gray-600">Recrutador(a)</p>
+                <h1 className="text-xl font-bold text-gray-900">Faturamento</h1>
+                <p className="text-sm text-gray-600">Operador(a)</p>
               </div>
             </div>
           </div>

@@ -89,7 +89,7 @@ export default function ContactModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md max-h-[90vh] overflow-hidden">
+      <DialogContent className="max-w-md max-h-[90vh] overflow-hidden fixed top-[50%] left-[50%] translate-x-[-50%]">  
         <div className="overflow-y-auto max-h-[80vh]">
           <DialogHeader>
             <DialogClose onClose={() => onOpenChange(false)} />

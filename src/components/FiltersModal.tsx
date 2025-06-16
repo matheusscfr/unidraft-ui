@@ -96,8 +96,8 @@ export default function FiltersModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-hidden">
-        <div className="overflow-y-auto max-h-[80vh]">
+      <DialogContent className=" max-w-xl max-h-[90vh] overflow-hidden fixed top-[50%] left-[50%] translate-x-[-50%]">
+        <div className="overflow-y-auto max-h-[85vh]">
           <DialogHeader>
             <DialogClose onClose={() => onOpenChange(false)} />
             <DialogTitle className="text-xl font-bold flex items-center space-x-2">
